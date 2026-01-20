@@ -66,6 +66,17 @@
         .story-img {
             filter: sepia(10%) contrast(95%) brightness(98%);
         }
+
+        /* 滾動動畫狀態 */
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 1s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
     </style>
 </head>
 <body class="selection:bg-stone-200">
@@ -106,7 +117,7 @@
 
     <!-- Hero Section -->
     <section class="pt-24 min-h-screen flex flex-col justify-center items-center px-6">
-        <div class="max-w-6xl w-full grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+        <div class="max-w-6xl w-full grid grid-cols-1 md:grid-cols-12 gap-8 items-center reveal">
             <div class="md:col-span-7 overflow-hidden rounded-sm shadow-sm bg-stone-200">
                 <img
                     src="https://images.unsplash.com/photo-1504198266287-1659872e6590?auto=format&fit=crop&q=80&w=2000"
@@ -130,35 +141,140 @@
 
     <!-- 敘事區塊 -->
     <section class="py-48 px-6 bg-[#F2EDE4]/30 overflow-hidden">
-        <div class="max-w-4xl mx-auto text-center mb-32">
+        <div class="max-w-4xl mx-auto text-center mb-32 reveal">
             <h2 class="text-2xl font-serif tracking-[0.3em] mb-6">陶與豆的對話</h2>
             <p class="text-stone-500 font-light leading-loose tracking-[0.15em] text-sm">
                 為什麼我們堅持同時投入這兩項工藝？因為好的咖啡需要一個合適的容器。<br>
                 我們記錄火的燒製，也記錄豆的熟成。
             </p>
         </div>
-        <div class="max-w-7xl mx-auto">
+        <div class="max-w-7xl mx-auto reveal">
             <div class="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-0 items-start">
                 <div class="md:col-span-4 px-4">
                     <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&q=80&w=800" class="w-full aspect-[3/4] object-cover story-img shadow-sm" alt="烘焙">
+                    <p class="mt-4 text-[10px] tracking-widest text-stone-400 italic text-center md:text-left">I. 喚醒風味的線條</p>
                 </div>
                 <div class="md:col-span-4 px-4 md:translate-y-32">
                     <img src="https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?auto=format&fit=crop&q=80&w=800" class="w-full aspect-[4/5] object-cover story-img shadow-sm" alt="手捏">
+                    <p class="mt-4 text-[10px] tracking-widest text-stone-400 italic text-center">II. 土與人的溫度連結</p>
                 </div>
                 <div class="md:col-span-4 px-4 md:translate-y-16">
                     <img src="https://images.unsplash.com/photo-1541167760496-1628856ab772?auto=format&fit=crop&q=80&w=800" class="w-full aspect-[3/4] object-cover story-img shadow-sm" alt="對話">
+                    <p class="mt-4 text-[10px] tracking-widest text-stone-400 italic text-center md:text-right">III. 在日常中溫柔交會</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 商品列表 -->
+    <section class="py-48 max-w-7xl mx-auto px-6 reveal">
+        <div class="flex justify-between items-end mb-16">
+            <div>
+                <h2 class="text-2xl font-serif tracking-[0.3em] mb-2">新品。現蹤</h2>
+                <p class="text-xs text-stone-400 tracking-widest uppercase">New Arrivals & Limited Editions</p>
+            </div>
+            <a href="pottery.html" class="text-xs tracking-widest text-stone-400 hover:text-stone-800 transition-colors">查看全部 →</a>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+            <!-- Product 1 -->
+            <div class="group cursor-pointer">
+                <div class="aspect-[4/5] bg-stone-100 mb-6 relative overflow-hidden rounded-sm">
+                    <img src="https://images.unsplash.com/photo-1559056199-641a0ac8b55e?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="限定包裝咖啡豆">
+                    <div class="absolute top-4 right-4 holographic-tag px-3 py-1 text-[10px] tracking-widest font-bold text-stone-800 uppercase shadow-sm">
+                        Limited Edition
+                    </div>
+                </div>
+                <div class="space-y-2">
+                    <h3 class="text-sm tracking-widest font-medium">糸選 | 幻彩系列配方豆</h3>
+                    <p class="text-sm text-stone-600 font-light">NT$ 680</p>
+                </div>
+            </div>
+
+            <!-- Product 2 -->
+            <div class="group cursor-pointer">
+                <div class="aspect-[4/5] bg-stone-100 mb-6 relative overflow-hidden rounded-sm">
+                    <img src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="陶製濾杯">
+                </div>
+                <div class="space-y-2">
+                    <div class="flex items-center space-x-2">
+                        <h3 class="text-sm tracking-widest font-medium">手作粗陶圓潤濾杯</h3>
+                        <span class="text-[9px] border border-stone-300 px-1 text-stone-400">孤品</span>
+                    </div>
+                    <p class="text-sm text-stone-600 font-light">NT$ 1,200</p>
+                </div>
+            </div>
+
+            <!-- Product 3 -->
+            <div class="group cursor-pointer">
+                <div class="aspect-[4/5] bg-stone-100 mb-6 relative overflow-hidden rounded-sm">
+                    <img src="https://images.unsplash.com/photo-1520970014086-2208d157c9e2?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="日常禮盒">
+                </div>
+                <div class="space-y-2">
+                    <h3 class="text-sm tracking-widest font-medium">日常儀式 | 陶與豆禮盒</h3>
+                    <p class="text-sm text-stone-600 font-light">NT$ 2,450</p>
+                </div>
+            </div>
+
+            <!-- Product 4 -->
+            <div class="group cursor-pointer">
+                <div class="aspect-[4/5] bg-stone-100 mb-6 relative overflow-hidden rounded-sm">
+                    <img src="https://images.unsplash.com/photo-1577900232427-18219b9166a0?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="手捏馬克杯">
+                </div>
+                <div class="space-y-2">
+                    <h3 class="text-sm tracking-widest font-medium">無釉手捏質感馬克杯</h3>
+                    <p class="text-sm text-stone-600 font-light">NT$ 850</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-[#F2EDE4]/60 py-24 px-8 border-t border-stone-200 text-center">
-        <p class="text-3xl font-serif tracking-widest mb-8">糸</p>
-        <p class="text-stone-400 text-[10px] tracking-[0.2em] uppercase italic">&copy; 2026 ITO ARTISANAL. ALL RIGHTS RESERVED.</p>
+    <footer class="bg-[#F2EDE4]/60 pt-32 pb-12 px-8 reveal">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-16 mb-24">
+            <div class="md:col-span-5">
+                <p class="text-3xl font-serif tracking-widest mb-8">糸</p>
+                <p class="text-stone-500 font-light leading-loose tracking-widest text-sm max-w-sm">
+                    我們相信，美好的器物能讓平凡的日常變得神聖。在快節奏的世界裡，為自己留下一段慢下來的時光。
+                </p>
+            </div>
+            <div class="md:col-span-2">
+                <h4 class="text-xs tracking-[0.3em] font-bold mb-8 uppercase">Shop</h4>
+                <ul class="space-y-4 text-xs tracking-widest text-stone-500 font-light">
+                    <li><a href="index.html" class="hover:text-stone-800">咖啡豆</a></li>
+                    <li><a href="pottery.html" class="hover:text-stone-800">手作陶器</a></li>
+                    <li><a href="#" class="hover:text-stone-800">日常禮盒</a></li>
+                </ul>
+            </div>
+            <div class="md:col-span-2">
+                <h4 class="text-xs tracking-[0.3em] font-bold mb-8 uppercase">Info</h4>
+                <ul class="space-y-4 text-xs tracking-widest text-stone-500 font-light">
+                    <li><a href="#" class="hover:text-stone-800">品牌故事</a></li>
+                    <li><a href="#" class="hover:text-stone-800">常見問題</a></li>
+                    <li><a href="#" class="hover:text-stone-800">聯絡我們</a></li>
+                </ul>
+            </div>
+            <div class="md:col-span-3">
+                <h4 class="text-xs tracking-[0.3em] font-bold mb-8 uppercase">Newsletter</h4>
+                <p class="text-[10px] text-stone-400 tracking-widest mb-4">訂閱我們的電子報，接收最新的職人故事。</p>
+                <div class="flex border-b border-stone-400 pb-2">
+                    <input type="email" placeholder="Email" class="bg-transparent text-xs w-full focus:outline-none font-light tracking-widest">
+                    <button class="text-xs tracking-widest hover:opacity-50 transition-opacity uppercase">Join</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center pt-12 border-t border-stone-200 text-stone-400 text-[10px] tracking-[0.2em]">
+            <p>&copy; 2026 ITO ARTISANAL. ALL RIGHTS RESERVED.</p>
+            <div class="mt-4 md:mt-0 flex space-x-8 uppercase">
+                <a href="#" class="hover:text-stone-600">Instagram</a>
+                <a href="#" class="hover:text-stone-600">Facebook</a>
+            </div>
+        </div>
     </footer>
 
     <script>
+        // 手機選單控制
         const menuToggle = document.getElementById('menu-toggle');
         const mobileMenu = document.getElementById('mobile-menu');
         const menuIconPath = document.getElementById('menu-icon-path');
@@ -177,6 +293,21 @@
                 menuIconPath.setAttribute('d', 'M4 8h16M4 16h16');
                 document.body.style.overflow = '';
             }
+        });
+
+        // 捲動淡入動畫控制
+        document.addEventListener('DOMContentLoaded', () => {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.reveal').forEach(el => {
+                observer.observe(el);
+            });
         });
     </script>
 </body>
