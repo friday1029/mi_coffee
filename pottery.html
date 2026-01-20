@@ -46,8 +46,9 @@
             width: 100%;
         }
 
+        /* 手機選單側邊滑入 */
         #mobile-menu {
-            transition: transform 0.5s cubic-bezier(0.165, 0.84, 0.44, 1), opacity 0.4s ease;
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .holographic-tag {
@@ -73,32 +74,38 @@
             transform: translateY(0);
         }
 
-        .product-card img {
-            transition: transform 1.2s cubic-bezier(0.165, 0.84, 0.44, 1);
-        }
-        .product-card:hover img {
-            transform: scale(1.08);
+        /* 隱藏捲軸 */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        @media (max-width: 768px) {
+            .mobile-category-scroll {
+                display: flex;
+                overflow-x: auto;
+                white-space: nowrap;
+                -webkit-overflow-scrolling: touch;
+            }
         }
     </style>
 </head>
-<body class="selection:bg-stone-200">
+<body class="selection:bg-stone-200 overflow-x-hidden">
 
     <!-- Navigation Header -->
     <header class="fixed top-0 w-full z-50 bg-[#F9F6F1]/80 backdrop-blur-md border-b border-stone-100">
-        <div class="max-w-7xl mx-auto px-8 h-24 flex items-center justify-between">
+        <div class="max-w-7xl mx-auto px-6 md:px-8 h-20 md:h-24 flex items-center justify-between">
             <nav class="hidden md:flex space-x-10 text-[13px] tracking-[0.25em] font-light">
                 <a href="index.html" class="nav-link">咖啡 COFFEE</a>
                 <a href="#" class="nav-link font-medium border-b border-stone-800">陶器 POTTERY</a>
             </nav>
 
-            <a href="index.html" class="text-4xl font-serif tracking-[0.3em] text-[#332a22] translate-x-4 md:translate-x-0">糸</a>
+            <a href="index.html" class="text-3xl md:text-4xl font-serif tracking-[0.3em] text-[#332a22]">糸</a>
 
             <nav class="hidden md:flex space-x-10 text-[13px] tracking-[0.25em] font-light">
                 <a href="#" class="nav-link">敘事 STORY</a>
                 <a href="#" class="nav-link">聯絡 CONTACT</a>
             </nav>
 
-            <button id="menu-toggle" class="md:hidden text-stone-600 focus:outline-none p-2">
+            <button id="menu-toggle" class="md:hidden text-stone-600 focus:outline-none p-2 active:scale-90 transition-transform">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                     <path id="menu-icon-path" d="M4 8h16M4 16h16" stroke-linecap="round"/>
                 </svg>
@@ -107,9 +114,9 @@
     </header>
 
     <!-- Mobile Menu Overlay -->
-    <div id="mobile-menu" class="fixed inset-0 z-40 bg-[#F9F6F1] flex flex-col items-center justify-center opacity-0 pointer-events-none translate-y-[-10%]">
-        <nav class="flex flex-col items-center space-y-12 text-center">
-            <a href="index.html" class="text-xs tracking-[0.4em] text-stone-400 italic mb-4">ITO ARTISANAL</a>
+    <div id="mobile-menu" class="fixed inset-0 z-40 bg-[#F9F6F1] flex flex-col items-center justify-center opacity-0 pointer-events-none translate-x-full">
+        <nav class="flex flex-col items-center space-y-10 text-center">
+            <a href="index.html" class="text-xs tracking-[0.4em] text-stone-400 italic mb-2">ITO ARTISANAL</a>
             <a href="index.html" class="text-2xl font-serif tracking-widest text-stone-800">咖啡 COFFEE</a>
             <a href="pottery.html" class="text-2xl font-serif tracking-widest text-stone-800 border-b border-stone-800">陶器 POTTERY</a>
             <a href="#" class="text-2xl font-serif tracking-widest text-stone-800">敘事 STORY</a>
@@ -118,68 +125,134 @@
     </div>
 
     <!-- Page Header -->
-    <section class="pt-48 pb-24 px-6">
+    <section class="pt-40 md:pt-48 pb-16 md:pb-24 px-6">
         <div class="max-w-4xl mx-auto text-center reveal">
-            <h1 class="text-3xl md:text-4xl font-serif tracking-[0.4em] mb-6">陶器 POTTERY</h1>
-            <div class="w-12 h-px bg-stone-300 mx-auto mb-8"></div>
-            <p class="text-stone-500 font-light leading-loose tracking-[0.2em] text-sm max-w-2xl mx-auto">
-                泥土經過火的淬煉，凝結成日常的容器。
+            <h1 class="text-2xl md:text-4xl font-serif tracking-[0.4em] mb-4 md:mb-6 uppercase">陶器 Pottery</h1>
+            <div class="w-10 h-px bg-stone-300 mx-auto mb-6 md:mb-8"></div>
+            <p class="text-stone-500 font-light leading-loose tracking-[0.15em] text-xs md:text-sm max-w-2xl mx-auto">
+                泥土經過火的淬煉，凝結成日常的容器。在不完美中尋找最純粹的平衡。
             </p>
         </div>
     </section>
 
-    <!-- Filter & Sort Bar -->
-    <section class="max-w-7xl mx-auto px-8 mb-16 reveal">
-        <div class="flex flex-col md:flex-row justify-between items-center border-y border-stone-200 py-6">
-            <div class="flex space-x-8 text-[11px] tracking-[0.3em] uppercase text-stone-400">
-                <a href="#" class="text-stone-800 border-b border-stone-800 pb-1">All Items</a>
-                <a href="#" class="hover:text-stone-800 transition-colors">Cups</a>
-                <a href="#" class="hover:text-stone-800 transition-colors">Plates</a>
+    <!-- Filter & Sort Bar (手機橫向滑動) -->
+    <section class="max-w-7xl mx-auto px-6 md:px-8 mb-12 md:mb-16 reveal">
+        <div class="flex flex-col md:flex-row justify-between items-center border-y border-stone-200 py-4 md:py-6">
+            <div class="mobile-category-scroll no-scrollbar w-full md:w-auto flex space-x-6 md:space-x-8 text-[10px] md:text-[11px] tracking-[0.3em] uppercase text-stone-400 overflow-x-auto pb-2 md:pb-0">
+                <a href="#" class="text-stone-800 border-b border-stone-800 pb-1 flex-shrink-0">All Items</a>
+                <a href="#" class="hover:text-stone-800 transition-colors flex-shrink-0">Cups & Mugs</a>
+                <a href="#" class="hover:text-stone-800 transition-colors flex-shrink-0">Plates & Bowls</a>
+                <a href="#" class="hover:text-stone-800 transition-colors flex-shrink-0">Drippers</a>
             </div>
-            <div class="mt-4 md:mt-0 text-[11px] tracking-[0.2em] text-stone-400">
-                <span>Sort by: 最新到貨</span>
+            <div class="hidden md:block text-[11px] tracking-[0.2em] text-stone-400">
+                <span>Sort by: </span>
+                <select class="bg-transparent focus:outline-none text-stone-800 cursor-pointer">
+                    <option>最新到貨</option>
+                    <option>價格由低到高</option>
+                </select>
             </div>
         </div>
     </section>
 
-    <!-- Product Grid -->
-    <section class="max-w-7xl mx-auto px-8 pb-48">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-24">
+    <!-- Product Grid (手機雙欄) -->
+    <section class="max-w-7xl mx-auto px-6 md:px-8 pb-32 md:pb-48">
+        <div class="grid grid-cols-2 lg:grid-cols-3 gap-x-6 md:gap-x-12 gap-y-16 md:gap-y-24">
 
+            <!-- Item 1 -->
             <div class="product-card reveal group">
-                <div class="aspect-[3/4] overflow-hidden bg-stone-100 relative rounded-sm mb-6">
-                    <img src="https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?auto=format&fit=crop&q=80&w=1000" class="w-full h-full object-cover" alt="手作陶杯">
-                    <div class="absolute top-4 left-4 bg-white/80 backdrop-blur-sm px-3 py-1 text-[9px] tracking-[0.2em] text-stone-600 border border-white/50">孤品 UNIQUE</div>
+                <div class="aspect-[3/4] overflow-hidden bg-stone-100 relative rounded-sm mb-4 md:mb-6">
+                    <img src="https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?auto=format&fit=crop&q=80&w=1000" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000" alt="手作陶杯">
+                    <div class="absolute top-2 left-2 md:top-4 md:left-4 bg-white/80 backdrop-blur-sm px-2 py-1 text-[8px] md:text-[9px] tracking-[0.2em] text-stone-600 border border-white/50">UNIQUE</div>
                 </div>
-                <h3 class="text-sm tracking-widest font-serif">灰釉手捏直筒馬克杯</h3>
-                <p class="text-sm font-light">NT$ 980</p>
+                <div class="space-y-1">
+                    <h3 class="text-[11px] md:text-sm tracking-widest font-serif leading-tight">灰釉手捏直筒馬克杯</h3>
+                    <p class="text-[11px] md:text-sm text-stone-500 font-light italic">NT$ 980</p>
+                </div>
             </div>
 
+            <!-- Item 2 -->
             <div class="product-card reveal group md:translate-y-16">
-                <div class="aspect-[3/4] overflow-hidden bg-stone-100 relative rounded-sm mb-6">
-                    <img src="https://images.unsplash.com/photo-1610701596007-11502861dcfa?auto=format&fit=crop&q=80&w=1000" class="w-full h-full object-cover" alt="流釉盤">
-                    <div class="absolute top-4 right-4 holographic-tag px-3 py-1 text-[9px] tracking-[0.2em] font-bold text-stone-800 shadow-sm">NEW CREATION</div>
+                <div class="aspect-[3/4] overflow-hidden bg-stone-100 relative rounded-sm mb-4 md:mb-6">
+                    <img src="https://images.unsplash.com/photo-1610701596007-11502861dcfa?auto=format&fit=crop&q=80&w=1000" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000" alt="流釉盤">
+                    <div class="absolute top-2 right-2 md:top-4 md:right-4 holographic-tag px-2 md:px-3 py-1 text-[8px] md:text-[9px] tracking-[0.2em] font-bold text-stone-800 shadow-sm">NEW</div>
                 </div>
-                <h3 class="text-sm tracking-widest font-serif">「極光」系列流釉盤</h3>
-                <p class="text-sm font-light">NT$ 1,450</p>
+                <div class="space-y-1">
+                    <h3 class="text-[11px] md:text-sm tracking-widest font-serif leading-tight">「極光」系列流釉盤</h3>
+                    <p class="text-[11px] md:text-sm text-stone-500 font-light italic">NT$ 1,450</p>
+                </div>
             </div>
 
+            <!-- Item 3 -->
             <div class="product-card reveal group">
-                <div class="aspect-[3/4] overflow-hidden bg-stone-200 relative rounded-sm mb-6">
-                    <img src="https://images.unsplash.com/photo-1618354691792-d1d42acfd860?auto=format&fit=crop&q=80&w=1000" class="w-full h-full object-cover" alt="黑陶盤">
+                <div class="aspect-[3/4] overflow-hidden bg-stone-200 relative rounded-sm mb-4 md:mb-6">
+                    <img src="https://images.unsplash.com/photo-1618354691792-d1d42acfd860?auto=format&fit=crop&q=80&w=1000" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000" alt="黑陶盤">
                 </div>
-                <h3 class="text-sm tracking-widest font-serif">炭黑粗粒子淺盤</h3>
-                <p class="text-sm font-light">NT$ 850</p>
+                <div class="space-y-1">
+                    <h3 class="text-[11px] md:text-sm tracking-widest font-serif leading-tight">炭黑粗粒子淺盤</h3>
+                    <p class="text-[11px] md:text-sm text-stone-500 font-light italic">NT$ 850</p>
+                </div>
+            </div>
+
+            <!-- Item 4 -->
+            <div class="product-card reveal group">
+                <div class="aspect-[3/4] overflow-hidden bg-stone-100 relative rounded-sm mb-4 md:mb-6">
+                    <img src="https://images.unsplash.com/photo-1580915411954-282cb1b0d780?auto=format&fit=crop&q=80&w=1000" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000" alt="濾杯">
+                </div>
+                <div class="space-y-1">
+                    <h3 class="text-[11px] md:text-sm tracking-widest font-serif leading-tight">手捏圓潤陶製濾杯</h3>
+                    <p class="text-[11px] md:text-sm text-stone-500 font-light italic">NT$ 1,200</p>
+                </div>
+            </div>
+
+            <!-- Item 5 -->
+            <div class="product-card reveal group md:translate-y-16">
+                <div class="aspect-[3/4] overflow-hidden bg-stone-100 relative rounded-sm mb-4 md:mb-6">
+                    <img src="https://images.unsplash.com/photo-1515696955266-4f67e13219e8?auto=format&fit=crop&q=80&w=1000" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000" alt="茶罐">
+                </div>
+                <div class="space-y-1">
+                    <h3 class="text-[11px] md:text-sm tracking-widest font-serif leading-tight">老靈魂木蓋茶罐</h3>
+                    <p class="text-[11px] md:text-sm text-stone-500 font-light italic">NT$ 2,100</p>
+                </div>
+            </div>
+
+            <!-- Item 6 -->
+            <div class="product-card reveal group">
+                <div class="aspect-[3/4] overflow-hidden bg-stone-100 relative rounded-sm mb-4 md:mb-6">
+                    <img src="https://images.unsplash.com/photo-1520443240718-fce21901db79?auto=format&fit=crop&q=80&w=1000" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000" alt="花瓶">
+                </div>
+                <div class="space-y-1">
+                    <h3 class="text-[11px] md:text-sm tracking-widest font-serif leading-tight">不規則手捏感花器</h3>
+                    <p class="text-[11px] md:text-sm text-stone-500 font-light italic">NT$ 1,600</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Story Banner -->
+    <section class="bg-[#F2EDE4]/60 py-24 md:py-32 px-6 md:px-8 reveal">
+        <div class="max-w-4xl mx-auto flex flex-col md:flex-row items-center gap-10 md:gap-16">
+            <div class="w-full md:w-1/2 overflow-hidden rounded-sm">
+                <img src="https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?auto=format&fit=crop&q=80&w=800" class="w-full grayscale-[30%] hover:scale-105 transition-transform duration-1000" alt="工藝">
+            </div>
+            <div class="w-full md:w-1/2 text-center md:text-left space-y-4 md:space-y-6">
+                <h2 class="text-xl md:text-2xl font-serif tracking-[0.3em]">指尖下的沈思</h2>
+                <p class="text-stone-500 font-light text-xs md:text-sm leading-loose tracking-[0.15em]">
+                    在「糸」的工坊裡，我們不追求完美的圓潤。保留土的顆粒、火的燻痕，才是器物活過的證明。
+                </p>
+                <a href="#" class="inline-block text-[10px] md:text-[11px] tracking-[0.3em] border-b border-stone-800 pb-2 uppercase">Explore Craft</a>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-[#F2EDE4]/60 py-24 px-8 border-t border-stone-200 text-center text-stone-400 text-[10px] tracking-[0.2em]">
-        <p>&copy; 2026 ITO ARTISANAL. ALL RIGHTS RESERVED.</p>
+    <footer class="pt-20 pb-10 px-8 border-t border-stone-100 text-center">
+        <p class="text-2xl font-serif tracking-widest mb-6">糸</p>
+        <p class="text-stone-400 text-[9px] tracking-[0.2em] uppercase italic">&copy; 2026 ITO ARTISANAL. ALL RIGHTS RESERVED.</p>
     </footer>
 
     <script>
+        // 手機選單控制
         const menuToggle = document.getElementById('menu-toggle');
         const mobileMenu = document.getElementById('mobile-menu');
         const menuIconPath = document.getElementById('menu-icon-path');
@@ -188,18 +261,19 @@
         menuToggle.addEventListener('click', () => {
             isMenuOpen = !isMenuOpen;
             if (isMenuOpen) {
-                mobileMenu.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-[-10%]');
-                mobileMenu.classList.add('opacity-100', 'pointer-events-auto', 'translate-y-0');
+                mobileMenu.classList.remove('opacity-0', 'pointer-events-none', 'translate-x-full');
+                mobileMenu.classList.add('opacity-100', 'pointer-events-auto', 'translate-x-0');
                 menuIconPath.setAttribute('d', 'M6 18L18 6M6 6l12 12');
                 document.body.style.overflow = 'hidden';
             } else {
-                mobileMenu.classList.add('opacity-0', 'pointer-events-none', 'translate-y-[-10%]');
-                mobileMenu.classList.remove('opacity-100', 'pointer-events-auto', 'translate-y-0');
+                mobileMenu.classList.add('opacity-0', 'pointer-events-none', 'translate-x-full');
+                mobileMenu.classList.remove('opacity-100', 'pointer-events-auto', 'translate-x-0');
                 menuIconPath.setAttribute('d', 'M4 8h16M4 16h16');
                 document.body.style.overflow = '';
             }
         });
 
+        // 捲動淡入
         document.addEventListener('DOMContentLoaded', () => {
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
