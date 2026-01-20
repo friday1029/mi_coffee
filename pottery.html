@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>糸 (Ito) - 連結咖啡與陶的日常儀式</title>
+    <title>陶器 POTTERY - 糸 (Ito) 連結日常的器物</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;700&family=Noto+Sans+TC:wght@300;400&display=swap" rel="stylesheet">
     <style>
@@ -54,7 +54,7 @@
             background: linear-gradient(135deg, #e0f2fe 0%, #fae8ff 25%, #fef9c3 50%, #e0f2fe 75%, #fae8ff 100%);
             background-size: 200% 200%;
             animation: holo-shimmer 3s ease infinite;
-            border: 1px solid rgba(255,255,255,0.5);
+            border: 1px solid rgba(255,255,255,0.2);
         }
 
         @keyframes holo-shimmer {
@@ -63,19 +63,32 @@
             100% { background-position: 0% 50%; }
         }
 
-        .story-img {
-            filter: sepia(10%) contrast(95%) brightness(98%);
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .product-card img {
+            transition: transform 1.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+        .product-card:hover img {
+            transform: scale(1.08);
         }
     </style>
 </head>
 <body class="selection:bg-stone-200">
 
-    <!-- Navigation -->
+    <!-- Navigation Header -->
     <header class="fixed top-0 w-full z-50 bg-[#F9F6F1]/80 backdrop-blur-md border-b border-stone-100">
         <div class="max-w-7xl mx-auto px-8 h-24 flex items-center justify-between">
             <nav class="hidden md:flex space-x-10 text-[13px] tracking-[0.25em] font-light">
-                <a href="index.html" class="nav-link font-medium border-b border-stone-800">咖啡 COFFEE</a>
-                <a href="pottery.html" class="nav-link">陶器 POTTERY</a>
+                <a href="index.html" class="nav-link">咖啡 COFFEE</a>
+                <a href="#" class="nav-link font-medium border-b border-stone-800">陶器 POTTERY</a>
             </nav>
 
             <a href="index.html" class="text-4xl font-serif tracking-[0.3em] text-[#332a22] translate-x-4 md:translate-x-0">糸</a>
@@ -97,65 +110,73 @@
     <div id="mobile-menu" class="fixed inset-0 z-40 bg-[#F9F6F1] flex flex-col items-center justify-center opacity-0 pointer-events-none translate-y-[-10%]">
         <nav class="flex flex-col items-center space-y-12 text-center">
             <a href="index.html" class="text-xs tracking-[0.4em] text-stone-400 italic mb-4">ITO ARTISANAL</a>
-            <a href="index.html" class="text-2xl font-serif tracking-widest text-stone-800 border-b border-stone-800">咖啡 COFFEE</a>
-            <a href="pottery.html" class="text-2xl font-serif tracking-widest text-stone-800">陶器 POTTERY</a>
+            <a href="index.html" class="text-2xl font-serif tracking-widest text-stone-800">咖啡 COFFEE</a>
+            <a href="pottery.html" class="text-2xl font-serif tracking-widest text-stone-800 border-b border-stone-800">陶器 POTTERY</a>
             <a href="#" class="text-2xl font-serif tracking-widest text-stone-800">敘事 STORY</a>
             <a href="#" class="text-2xl font-serif tracking-widest text-stone-800">聯絡 CONTACT</a>
         </nav>
     </div>
 
-    <!-- Hero Section -->
-    <section class="pt-24 min-h-screen flex flex-col justify-center items-center px-6">
-        <div class="max-w-6xl w-full grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
-            <div class="md:col-span-7 overflow-hidden rounded-sm shadow-sm bg-stone-200">
-                <img
-                    src="https://images.unsplash.com/photo-1504198266287-1659872e6590?auto=format&fit=crop&q=80&w=2000"
-                    alt="糸品牌招牌"
-                    class="w-full h-[60vh] md:h-[70vh] object-cover hover:scale-105 transition-transform duration-1000"
-                    onerror="this.src='https://images.unsplash.com/photo-1490623970972-ae8bb3da4f3e?auto=format&fit=crop&q=80&w=2000'"
-                >
+    <!-- Page Header -->
+    <section class="pt-48 pb-24 px-6">
+        <div class="max-w-4xl mx-auto text-center reveal">
+            <h1 class="text-3xl md:text-4xl font-serif tracking-[0.4em] mb-6">陶器 POTTERY</h1>
+            <div class="w-12 h-px bg-stone-300 mx-auto mb-8"></div>
+            <p class="text-stone-500 font-light leading-loose tracking-[0.2em] text-sm max-w-2xl mx-auto">
+                泥土經過火的淬煉，凝結成日常的容器。
+            </p>
+        </div>
+    </section>
+
+    <!-- Filter & Sort Bar -->
+    <section class="max-w-7xl mx-auto px-8 mb-16 reveal">
+        <div class="flex flex-col md:flex-row justify-between items-center border-y border-stone-200 py-6">
+            <div class="flex space-x-8 text-[11px] tracking-[0.3em] uppercase text-stone-400">
+                <a href="#" class="text-stone-800 border-b border-stone-800 pb-1">All Items</a>
+                <a href="#" class="hover:text-stone-800 transition-colors">Cups</a>
+                <a href="#" class="hover:text-stone-800 transition-colors">Plates</a>
             </div>
-            <div class="md:col-span-5 md:pl-12 flex flex-col justify-center">
-                <span class="text-xs tracking-[0.4em] text-stone-400 mb-6 uppercase italic">The Art of Connection</span>
-                <h1 class="text-3xl md:text-5xl font-serif leading-relaxed mb-8">糸 (Ito) —<br>連結咖啡與陶的日常儀式</h1>
-                <p class="text-stone-500 font-light leading-loose tracking-widest text-sm mb-10">
-                    在纖維與線條的交織中，我們尋找生活的呼吸感。透過職人手捏的陶溫，盛裝細心烘焙的豆香。
-                </p>
-                <div>
-                    <a href="pottery.html" class="text-xs tracking-widest border-b border-stone-800 pb-2 hover:opacity-50 transition-all">探索全系列</a>
-                </div>
+            <div class="mt-4 md:mt-0 text-[11px] tracking-[0.2em] text-stone-400">
+                <span>Sort by: 最新到貨</span>
             </div>
         </div>
     </section>
 
-    <!-- 敘事區塊 -->
-    <section class="py-48 px-6 bg-[#F2EDE4]/30 overflow-hidden">
-        <div class="max-w-4xl mx-auto text-center mb-32">
-            <h2 class="text-2xl font-serif tracking-[0.3em] mb-6">陶與豆的對話</h2>
-            <p class="text-stone-500 font-light leading-loose tracking-[0.15em] text-sm">
-                為什麼我們堅持同時投入這兩項工藝？因為好的咖啡需要一個合適的容器。<br>
-                我們記錄火的燒製，也記錄豆的熟成。
-            </p>
-        </div>
-        <div class="max-w-7xl mx-auto">
-            <div class="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-0 items-start">
-                <div class="md:col-span-4 px-4">
-                    <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&q=80&w=800" class="w-full aspect-[3/4] object-cover story-img shadow-sm" alt="烘焙">
+    <!-- Product Grid -->
+    <section class="max-w-7xl mx-auto px-8 pb-48">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-24">
+
+            <div class="product-card reveal group">
+                <div class="aspect-[3/4] overflow-hidden bg-stone-100 relative rounded-sm mb-6">
+                    <img src="https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?auto=format&fit=crop&q=80&w=1000" class="w-full h-full object-cover" alt="手作陶杯">
+                    <div class="absolute top-4 left-4 bg-white/80 backdrop-blur-sm px-3 py-1 text-[9px] tracking-[0.2em] text-stone-600 border border-white/50">孤品 UNIQUE</div>
                 </div>
-                <div class="md:col-span-4 px-4 md:translate-y-32">
-                    <img src="https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?auto=format&fit=crop&q=80&w=800" class="w-full aspect-[4/5] object-cover story-img shadow-sm" alt="手捏">
+                <h3 class="text-sm tracking-widest font-serif">灰釉手捏直筒馬克杯</h3>
+                <p class="text-sm font-light">NT$ 980</p>
+            </div>
+
+            <div class="product-card reveal group md:translate-y-16">
+                <div class="aspect-[3/4] overflow-hidden bg-stone-100 relative rounded-sm mb-6">
+                    <img src="https://images.unsplash.com/photo-1610701596007-11502861dcfa?auto=format&fit=crop&q=80&w=1000" class="w-full h-full object-cover" alt="流釉盤">
+                    <div class="absolute top-4 right-4 holographic-tag px-3 py-1 text-[9px] tracking-[0.2em] font-bold text-stone-800 shadow-sm">NEW CREATION</div>
                 </div>
-                <div class="md:col-span-4 px-4 md:translate-y-16">
-                    <img src="https://images.unsplash.com/photo-1541167760496-1628856ab772?auto=format&fit=crop&q=80&w=800" class="w-full aspect-[3/4] object-cover story-img shadow-sm" alt="對話">
+                <h3 class="text-sm tracking-widest font-serif">「極光」系列流釉盤</h3>
+                <p class="text-sm font-light">NT$ 1,450</p>
+            </div>
+
+            <div class="product-card reveal group">
+                <div class="aspect-[3/4] overflow-hidden bg-stone-200 relative rounded-sm mb-6">
+                    <img src="https://images.unsplash.com/photo-1618354691792-d1d42acfd860?auto=format&fit=crop&q=80&w=1000" class="w-full h-full object-cover" alt="黑陶盤">
                 </div>
+                <h3 class="text-sm tracking-widest font-serif">炭黑粗粒子淺盤</h3>
+                <p class="text-sm font-light">NT$ 850</p>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-[#F2EDE4]/60 py-24 px-8 border-t border-stone-200 text-center">
-        <p class="text-3xl font-serif tracking-widest mb-8">糸</p>
-        <p class="text-stone-400 text-[10px] tracking-[0.2em] uppercase italic">&copy; 2026 ITO ARTISANAL. ALL RIGHTS RESERVED.</p>
+    <footer class="bg-[#F2EDE4]/60 py-24 px-8 border-t border-stone-200 text-center text-stone-400 text-[10px] tracking-[0.2em]">
+        <p>&copy; 2026 ITO ARTISANAL. ALL RIGHTS RESERVED.</p>
     </footer>
 
     <script>
@@ -177,6 +198,17 @@
                 menuIconPath.setAttribute('d', 'M4 8h16M4 16h16');
                 document.body.style.overflow = '';
             }
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, { threshold: 0.1 });
+            document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
         });
     </script>
 </body>
